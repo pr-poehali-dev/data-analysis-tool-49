@@ -59,7 +59,18 @@ export function ShowcaseSection() {
                 <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/90 to-transparent">
                   <span className="text-xs font-sans font-bold tracking-[0.3em] text-primary block mb-1">{items[i].label}</span>
                   <span className="text-white font-serif text-lg block leading-tight">{items[i].name}</span>
-                  <span className="text-white/70 font-sans text-sm mt-1 block">{items[i].price}</span>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-white/70 font-sans text-sm">{items[i].price}</span>
+                    <a
+                      href="https://t.me/SarSwagginWear"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="bg-primary text-primary-foreground text-xs font-bold uppercase tracking-widest px-4 py-2 hover:bg-primary/80 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Заказать
+                    </a>
+                  </div>
                 </div>
                 <div className="absolute top-3 right-3 border border-primary px-2 py-0.5">
                   <span className="text-xs text-primary font-sans font-bold">SAR</span>
