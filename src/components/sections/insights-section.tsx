@@ -7,22 +7,22 @@ const articles = [
   {
     title: "История бренда: рождение из саратовских улиц",
     category: "О нас",
-    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/files/ca1818bf-9d31-4823-8782-f929f48fe0d8.jpg",
+    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/bucket/107089fa-52ea-49c8-a600-24553e0b7100.jpg",
   },
   {
     title: "Что вдохновляет: анархия, панк и городская идентичность",
     category: "Философия",
-    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/files/14df07d4-2479-49bc-a2a2-65419290acb4.jpg",
+    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/bucket/baf6faec-fc8e-42e9-828a-4475204ac31a.jpg",
   },
   {
     title: "Дроп 001 — разбор коллекции",
     category: "Коллекции",
-    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/files/ce47e2d8-e1e1-4f31-9531-75a1f7b220ed.jpg",
+    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/bucket/901a921d-a8f9-4523-b058-f301c99ac411.jpg",
   },
   {
     title: "Символика Саратова в принтах SSW",
     category: "Дизайн",
-    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/files/ca1818bf-9d31-4823-8782-f929f48fe0d8.jpg",
+    image: "https://cdn.poehali.dev/projects/aac6f84b-fd0e-4860-acfd-9e4603f6c423/bucket/315d5439-5cb3-471e-94ef-16eb8b40be47.jpg",
   },
 ]
 
