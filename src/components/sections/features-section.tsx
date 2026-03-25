@@ -1,75 +1,80 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 
-function TypeTester() {
-  const [scale, setScale] = useState(1)
+function PunkSymbol() {
+  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setScale((prev) => (prev === 1 ? 1.5 : 1))
-    }, 2000)
+      setVisible((prev) => !prev)
+    }, 1800)
     return () => clearInterval(interval)
   }, [])
 
   return (
     <div className="flex items-center justify-center h-full">
       <motion.span
-        className="font-serif text-6xl md:text-8xl text-foreground"
-        animate={{ scale }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="font-serif text-7xl md:text-9xl text-primary select-none"
+        animate={{ opacity: visible ? 1 : 0.15, rotate: visible ? 0 : 15 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
-        Aa
+        ⚡
       </motion.span>
     </div>
   )
 }
 
-function LayoutAnimation() {
-  const [layout, setLayout] = useState(0)
+function SizeBadges() {
+  const sizes = ["XS", "S", "M", "L", "XL", "XXL"]
+  const [active, setActive] = useState(2)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLayout((prev) => (prev + 1) % 3)
-    }, 2500)
+      setActive((prev) => (prev + 1) % sizes.length)
+    }, 800)
     return () => clearInterval(interval)
   }, [])
 
-  const layouts = ["grid-cols-2 grid-rows-2", "grid-cols-3 grid-rows-1", "grid-cols-1 grid-rows-3"]
-
   return (
-    <div className="h-full p-4 flex items-center justify-center">
-      <motion.div className={`grid ${layouts[layout]} gap-2 w-full max-w-[140px]`} layout>
-        {[1, 2, 3].map((i) => (
-          <motion.div
-            key={i}
-            className="bg-primary/20 rounded-md min-h-[30px]"
-            layout
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          />
+    <div className="h-full flex items-center justify-center">
+      <div className="flex flex-wrap gap-2 justify-center max-w-[160px]">
+        {sizes.map((s, i) => (
+          <motion.span
+            key={s}
+            className="px-3 py-1 text-xs font-sans font-bold border"
+            animate={{
+              borderColor: i === active ? "hsl(0 85% 50%)" : "hsl(0 0% 25%)",
+              color: i === active ? "hsl(0 85% 50%)" : "hsl(0 0% 55%)",
+            }}
+            transition={{ duration: 0.2 }}
+          >
+            {s}
+          </motion.span>
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }
 
-function SpeedIndicator() {
-  const [progress, setProgress] = useState(0)
+function LimitedBadge() {
+  const [count, setCount] = useState(100)
 
   useEffect(() => {
-    const timeout = setTimeout(() => setProgress(100), 500)
-    return () => clearTimeout(timeout)
+    const interval = setInterval(() => {
+      setCount((prev) => (prev > 1 ? prev - 1 : 100))
+    }, 80)
+    return () => clearInterval(interval)
   }, [])
 
   return (
-    <div className="flex flex-col items-center justify-center h-full gap-4">
-      <span className="text-3xl md:text-4xl font-sans font-medium text-foreground">100ms</span>
-      <span className="text-sm text-muted-foreground">Загрузка</span>
-      <div className="w-full max-w-[120px] h-1.5 bg-foreground/10 rounded-full overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-full gap-2">
+      <span className="text-4xl md:text-5xl font-serif text-foreground tabular-nums">{count}</span>
+      <span className="text-xs text-muted-foreground uppercase tracking-widest">осталось единиц</span>
+      <div className="w-full max-w-[120px] h-1 bg-foreground/10 overflow-hidden">
         <motion.div
-          className="h-full bg-primary rounded-full"
-          initial={{ width: 0 }}
-          animate={{ width: `${progress}%` }}
-          transition={{ duration: 0.1 }}
+          className="h-full bg-primary"
+          animate={{ width: `${count}%` }}
+          transition={{ duration: 0.08 }}
         />
       </div>
     </div>
@@ -81,18 +86,17 @@ export function FeaturesSection() {
     <section className="bg-background px-6 py-24">
       <div className="max-w-6xl mx-auto">
         <motion.p
-          className="text-muted-foreground text-sm uppercase tracking-widest mb-8"
+          className="text-muted-foreground text-xs uppercase tracking-widest mb-8"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Возможности
+          Почему SAR SWAGGIN WEAR
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Typography Card */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <motion.div
-            className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
+            className="bg-secondary p-8 min-h-[280px] flex flex-col border border-border"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -102,17 +106,16 @@ export function FeaturesSection() {
             data-clickable
           >
             <div className="flex-1">
-              <TypeTester />
+              <PunkSymbol />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Типографика</h3>
-              <p className="text-muted-foreground text-sm mt-1">Красивые шрифты, которые идеально масштабируются.</p>
+              <h3 className="font-serif text-lg text-foreground">Дерзкий стиль</h3>
+              <p className="text-muted-foreground text-sm mt-1">Анархия, улица, Саратов — в каждом принте.</p>
             </div>
           </motion.div>
 
-          {/* Layouts Card */}
           <motion.div
-            className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
+            className="bg-secondary p-8 min-h-[280px] flex flex-col border border-border"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -122,17 +125,16 @@ export function FeaturesSection() {
             data-clickable
           >
             <div className="flex-1">
-              <LayoutAnimation />
+              <SizeBadges />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Макеты</h3>
-              <p className="text-muted-foreground text-sm mt-1">Гибкие сетки, которые адаптируются под контент.</p>
+              <h3 className="font-serif text-lg text-foreground">Все размеры</h3>
+              <p className="text-muted-foreground text-sm mt-1">От XS до XXL — стиль для каждого.</p>
             </div>
           </motion.div>
 
-          {/* Speed Card */}
           <motion.div
-            className="bg-secondary rounded-xl p-8 min-h-[280px] flex flex-col"
+            className="bg-secondary p-8 min-h-[280px] flex flex-col border border-border"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -142,11 +144,11 @@ export function FeaturesSection() {
             data-clickable
           >
             <div className="flex-1">
-              <SpeedIndicator />
+              <LimitedBadge />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Скорость</h3>
-              <p className="text-muted-foreground text-sm mt-1">Молниеносная загрузка страниц для ваших гостей.</p>
+              <h3 className="font-serif text-lg text-foreground">Лимитированные дропы</h3>
+              <p className="text-muted-foreground text-sm mt-1">Каждый релиз — ограниченный тираж. Успей первым.</p>
             </div>
           </motion.div>
         </div>
