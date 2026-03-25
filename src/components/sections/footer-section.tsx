@@ -2,6 +2,8 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import Icon from "@/components/ui/icon"
 
+const SUBSCRIBE_URL = "https://functions.poehali.dev/f87de94f-d1bf-48a8-8d4b-8e99c81981e5"
+
 const footerLinks = [
   { label: "Коллекции", href: "#" },
   { label: "О бренде", href: "#" },
@@ -11,10 +13,34 @@ const footerLinks = [
 
 export function FooterSection() {
   const [email, setEmail] = useState("")
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "already" | "error">("idle")
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!email) return
+    setStatus("loading")
+    try {
+      const res = await fetch(SUBSCRIBE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+      if (data.already) {
+        setStatus("already")
+      } else if (data.ok) {
+        setStatus("success")
+        setEmail("")
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
+  }
 
   return (
     <footer className="relative bg-background px-6 py-24 overflow-hidden">
-      {/* Red glow blob */}
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-tr from-red-900 via-red-800/30 to-transparent opacity-30 blur-3xl rounded-full" />
       </div>
@@ -52,22 +78,38 @@ export function FooterSection() {
 
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="text-muted-foreground text-sm mb-4 uppercase tracking-wider">Узнай о следующем дропе первым</p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
+            <form onSubmit={handleSubmit} className="flex gap-2">
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Введите email"
-                className="flex-1 bg-secondary border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm"
+                disabled={status === "loading" || status === "success"}
+                className="flex-1 bg-secondary border border-border px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors text-sm disabled:opacity-50"
               />
               <button
                 type="submit"
-                className="bg-primary text-primary-foreground p-3 hover:bg-primary/80 transition-colors"
+                disabled={status === "loading" || status === "success"}
+                className="bg-primary text-primary-foreground p-3 hover:bg-primary/80 transition-colors disabled:opacity-50"
                 data-clickable
               >
-                <Icon name="ArrowRight" size={20} />
+                {status === "loading"
+                  ? <Icon name="Loader2" size={20} className="animate-spin" />
+                  : status === "success"
+                  ? <Icon name="Check" size={20} />
+                  : <Icon name="ArrowRight" size={20} />
+                }
               </button>
             </form>
+            {status === "success" && (
+              <p className="text-primary text-xs mt-2 uppercase tracking-wider">Подписка оформлена!</p>
+            )}
+            {status === "already" && (
+              <p className="text-muted-foreground text-xs mt-2 uppercase tracking-wider">Ты уже подписан.</p>
+            )}
+            {status === "error" && (
+              <p className="text-destructive text-xs mt-2 uppercase tracking-wider">Ошибка. Попробуй ещё раз.</p>
+            )}
           </motion.div>
         </div>
 
@@ -77,7 +119,7 @@ export function FooterSection() {
             <a href="#" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors" data-clickable>
               Instagram
             </a>
-            <a href="#" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors" data-clickable>
+            <a href="https://t.me/SarSwagginWear" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors" data-clickable>
               Telegram
             </a>
             <a href="#" className="text-muted-foreground hover:text-primary text-xs uppercase tracking-wider transition-colors" data-clickable>
