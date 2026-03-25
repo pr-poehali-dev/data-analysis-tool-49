@@ -100,11 +100,19 @@ export function HeroSection() {
       </motion.div>
 
       <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-5"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
       >
+        <a
+          href="https://t.me/SarSwagginWear"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-primary text-primary-foreground px-8 py-3 font-bold text-sm uppercase tracking-widest hover:bg-primary/80 transition-colors"
+        >
+          Написать в Telegram
+        </a>
         <motion.div
           className="w-6 h-10 rounded-full border-2 border-primary/50 flex items-start justify-center p-2"
           animate={{ y: [0, 8, 0] }}
