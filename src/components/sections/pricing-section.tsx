@@ -69,15 +69,18 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <button
-                className={`w-full mt-8 py-3 px-6 font-bold text-sm uppercase tracking-widest transition-all ${
+              <a
+                href="https://t.me/SarSwagginWear"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`w-full mt-8 py-3 px-6 font-bold text-sm uppercase tracking-widest transition-all block text-center ${
                   plan.popular
                     ? "bg-primary text-primary-foreground hover:bg-primary/90"
                     : "bg-transparent border border-foreground/30 text-foreground hover:border-primary hover:text-primary"
                 }`}
               >
                 Заказать
-              </button>
+              </a>
             </motion.div>
           ))}
         </div>
