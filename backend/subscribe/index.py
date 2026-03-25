@@ -78,6 +78,12 @@ def handler(event: dict, context) -> dict:
           </tr>
           <tr>
             <td style="padding:24px 40px;border-top:1px solid #222;text-align:center;">
+              <p style="margin:0 0 16px;font-size:11px;color:#666;letter-spacing:2px;text-transform:uppercase;">Наш Telegram</p>
+              <a href="https://t.me/espanolafantasma" style="display:inline-block;background:#cc0000;color:#fff;text-decoration:none;padding:12px 28px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">@espanolafantasma</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:20px 40px;border-top:1px solid #1a1a1a;text-align:center;">
               <p style="margin:0;font-size:11px;color:#444;letter-spacing:2px;text-transform:uppercase;">2025 &copy; SAR SWAGGIN WEAR &mdash; Саратов</p>
             </td>
           </tr>
